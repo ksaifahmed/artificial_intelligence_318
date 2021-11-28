@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+G:/A_star/hueristics.cpp
+bits/stdc++.h
+-
+
+G:/A_star/main.cpp
+mat_utils.cpp
+G:/A_star/mat_utils.cpp
+hueristics.cpp
+G:/A_star/hueristics.cpp
+
+G:/A_star/mat_utils.cpp
+bits/stdc++.h
+-
+
