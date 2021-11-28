@@ -13,7 +13,7 @@ int main()
     print_matrix(copyMatrix(matrix, grid_size), grid_size);
     print_matrix(get_goal_matrix(grid_size), grid_size);
 
-    cout << "h is " << hamming_distance(matrix, grid_size);
+    cout << "h is " << manhattan_distance(matrix, get_goal_matrix(grid_size), grid_size);
 
     return 0;
 }
