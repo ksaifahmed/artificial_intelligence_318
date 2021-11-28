@@ -68,4 +68,19 @@ bool is_equal_matrix(int ** mat1, int ** mat2, int k)
     for(int i=0; i<k; i++)
         for(int j=0; j<k; j++)
             if(mat1[i][j] != mat2[i][j]) return false;
+    return true;
 }
+
+
+bool is_solvable(int **matrix, int k) {
+    //odd grid_size e.g. 3
+    if(k%2) {
+        return true;
+    }
+
+        //even grid_size e.g. 4
+    else {
+        return false;
+    }
+}
+
