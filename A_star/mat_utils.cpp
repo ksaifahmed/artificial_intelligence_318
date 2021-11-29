@@ -27,20 +27,15 @@ int ** copyMatrix(int ** matrix, int grid_size)
 }
 
 
-int ** get_matrix(int grid_size)
-{
-    char c;
-    int ** matrix = new int*[grid_size];
-    for(int i=0; i<grid_size; i++) matrix[i] = new int[grid_size];
+int **get_matrix(int grid_size) {
+    int **matrix = new int *[grid_size];
+    for (int i = 0; i < grid_size; i++)
+        matrix[i] = new int[grid_size];
 
     cout << "Enter initial board layout:" << endl;
-    for(int i=0; i<grid_size; i++) {
-        for(int j=0; j<grid_size; j++) {
-            cin >> c;
-            matrix[i][j] = c - '0';
-            if(matrix[i][j] == -6) {
-                matrix[i][j] = 0;
-            }
+    for (int i = 0; i < grid_size; i++) {
+        for (int j = 0; j < grid_size; j++) {
+            cin >> matrix[i][j];
         }
     }
     return matrix;
@@ -72,15 +67,44 @@ bool is_equal_matrix(int ** mat1, int ** mat2, int k)
 }
 
 
-bool is_solvable(int **matrix, int k) {
-    //odd grid_size e.g. 3
-    if(k%2) {
-        return true;
-    }
+int get_inversions(int **matrix, int k) {
+    int inv = 0, size = k*k - 1;
+    int *arr = new int[size];
 
-        //even grid_size e.g. 4
+    int c = 0;
+    for(int i=0; i<k; i++)
+        for(int j=0; j<k; j++)
+            if(matrix[i][j])
+                arr[c++] = matrix[i][j];
+
+    for(int i=0; i<size; i++)
+        for(int j=i+1; j<size; j++)
+            if(arr[i] > arr[j]) inv++;
+
+    return inv;
+}
+
+
+void is_solvable(int **matrix, int k) {
+    int inv = get_inversions(matrix, k);
+    //odd grid_size e.g. 3
+    if(k&1) {
+        if(!(inv&1)) cout << "Puzzle solvable!" << endl; //if inv is even
+        else cout << "Puzzle NOT solvable!" << endl; //if inv is odd
+    }
+    //even grid_size e.g. 4
     else {
-        return false;
+        int blank_r = -1;
+        for(int i=0; i<k; i++)
+            for(int j=0; j<k; j++)
+                if(!matrix[i][j]) {
+                    blank_r = i;
+                    cout << "\nrow of zero: " << i << endl;
+                    break;
+                }
+        if((blank_r&1 && !(inv&1)) || (!(blank_r&1) && inv&1))
+            cout << "Puzzle solvable!" << endl;
+        else cout << "Puzzle NOT solvable!" << endl;
     }
 }
 

@@ -13,6 +13,7 @@ int main()
     print_matrix(get_goal_matrix(grid_size), grid_size);
 
     cout << "h is " << linear_conflict(matrix, get_goal_matrix(grid_size), grid_size);
+    is_solvable(matrix, grid_size);
 
     return 0;
 }
