@@ -12,14 +12,15 @@ void solve(const Matrix& matrix, const Matrix& goal_matrix, int h_type) {
         State state = open_list.top();
         int h = get_h(state.second, goal_matrix, h_type);
         if(!h) { //found goal
-            cout << "\n\ngoal reached:\n";
+            cout << "\ngoal reached:";
             print_matrix(state.second);
-            cout << "h = 0, g = " << g;
+            cout << "h = 0, g = " << g << ", f = " << h + g;
             return;
         }
         open_list.pop();
         print_matrix(state.second);
-        cout << "h = " << h <<", g = " << g++ << endl << endl;
+        cout << "h = " << h <<", g = " << g << ", f = " << h + g << endl;
+        g++;
         closed_list[state.second] = 'y';
 
         vector< Matrix > neighbours = get_neighbours(state.second);
@@ -41,7 +42,12 @@ int main()
     cout << "Enter grid size, k: ";
     cin >> grid_size;
     Matrix matrix = get_matrix(grid_size);
-    solve(matrix, get_goal_matrix(grid_size), 0);
+    if(is_solvable(matrix)) {
+        cout << "puzzle is solvable\n";
+        solve(matrix, get_goal_matrix(grid_size), 0);
+    }else cout << "puzzle is NOT solvable!\n";
+
+
 
 //    print_matrix(matrix);
 //    print_matrix(copyMatrix(matrix));

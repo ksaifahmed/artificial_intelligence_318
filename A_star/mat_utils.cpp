@@ -89,13 +89,13 @@ int get_inversions(Matrix matrix) {
 }
 
 
-void is_solvable(Matrix matrix) {
+bool is_solvable(Matrix matrix) {
     int k = matrix.size();
     int inv = get_inversions(matrix);
     //odd grid_size e.g. 3
     if(k&1) {
-        if(!(inv&1)) cout << "Puzzle solvable!" << endl; //if inv is even
-        else cout << "Puzzle NOT solvable!" << endl; //if inv is odd
+        if(!(inv&1)) return true; //if inv is even
+        else return false; //if inv is odd
     }
     //even grid_size e.g. 4
     else {
@@ -104,12 +104,11 @@ void is_solvable(Matrix matrix) {
             for(int j=0; j<k; j++)
                 if(!matrix.at(i).at(j)) {
                     blank_r = i;
-                    cout << "\nrow of zero: " << i << endl;
                     break;
                 }
         if((blank_r&1 && !(inv&1)) || (!(blank_r&1) && inv&1))
-            cout << "Puzzle solvable!" << endl;
-        else cout << "Puzzle NOT solvable!" << endl;
+            return true;
+        else return false;
     }
 }
 
