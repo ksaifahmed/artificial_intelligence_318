@@ -70,3 +70,10 @@ int linear_conflict(Matrix matrix, Matrix goal_mat) {
 
     return conflicts * 2 + manhattan_distance(matrix, std::move(goal_mat));
 }
+
+
+int get_h(const Matrix& matrix, const Matrix& goal_mat, int h) {
+    if(h == 0) return hamming_distance(matrix, goal_mat);
+    else if(h == 1) return manhattan_distance(matrix, goal_mat);
+    else return linear_conflict(matrix, goal_mat);
+}

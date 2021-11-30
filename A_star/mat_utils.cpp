@@ -15,6 +15,14 @@ void print_matrix(Matrix matrix)
 
 }
 
+
+void swap_matrix_elm(Matrix *matrix, int i1, int r1, int i2, int r2) {
+    int temp = matrix -> at(i1).at(r1);
+    matrix -> at(i1).at(r1) = matrix -> at(i2).at(r2) ;
+    matrix -> at(i2).at(r2) = temp;
+}
+
+
 Matrix copyMatrix(vector<vector <int> > matrix)
 {
     Matrix new_mat;
@@ -105,3 +113,38 @@ void is_solvable(Matrix matrix) {
     }
 }
 
+pair<int, int> get_blank_pos(Matrix matrix) {
+    for(int i=0; i<matrix.size(); i++)
+        for(int j=0; j<matrix.size(); j++)
+            if (!matrix.at(i).at(j)) return make_pair(i, j);
+
+    return make_pair(-1, -1);
+}
+
+vector< Matrix > get_neighbours(Matrix matrix) {
+    vector< Matrix > neighbours;
+    pair<int, int> blank_pos = get_blank_pos(matrix);
+
+    if(blank_pos.first != 0) { //can move UP
+        Matrix m = copyMatrix(matrix);
+        swap_matrix_elm(&m, blank_pos.first, blank_pos.second, blank_pos.first - 1, blank_pos.second);
+        neighbours.push_back(m);
+    }
+    if(blank_pos.first != matrix.size() - 1) { //can move DOWN
+        Matrix m = copyMatrix(matrix);
+        swap_matrix_elm(&m, blank_pos.first, blank_pos.second, blank_pos.first + 1, blank_pos.second);
+        neighbours.push_back(m);
+    }
+    if(blank_pos.second != 0) { //can move LEFT
+        Matrix m = copyMatrix(matrix);
+        swap_matrix_elm(&m, blank_pos.first, blank_pos.second, blank_pos.first, blank_pos.second - 1);
+        neighbours.push_back(m);
+    }
+    if(blank_pos.second != matrix.size() - 1) { //can move RIGHT
+        Matrix m = copyMatrix(matrix);
+        swap_matrix_elm(&m, blank_pos.first, blank_pos.second, blank_pos.first, blank_pos.second + 1);
+        neighbours.push_back(m);
+    }
+
+    return neighbours;
+}
