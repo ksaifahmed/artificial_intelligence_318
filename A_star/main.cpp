@@ -25,7 +25,7 @@ void solve(const Matrix& matrix, const Matrix& goal_matrix, int h_type) {
         vector< Matrix > neighbours = get_neighbours(state.second);
         for(const Matrix& neighbour: neighbours) {
             if(closed_list[neighbour] != 'y') {
-                open_list.push(make_pair(g++ + get_h(neighbour, goal_matrix, h_type), neighbour));
+                open_list.push(make_pair(g + get_h(neighbour, goal_matrix, h_type), neighbour));
             }
         }
     }
