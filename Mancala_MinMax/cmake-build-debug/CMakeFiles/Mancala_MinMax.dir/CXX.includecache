@@ -6,7 +6,25 @@
 
 #IncludeRegexTransform: 
 
-G:/3-2/318/Mancala_MinMax/main.cpp
+G:/3-2/318/temp/Mancala_MinMax/comp_vs_human.cpp
 bits/stdc++.h
 -
+minmax.cpp
+G:/3-2/318/temp/Mancala_MinMax/minmax.cpp
+
+G:/3-2/318/temp/Mancala_MinMax/game_board.cpp
+bits/stdc++.h
+-
+
+G:/3-2/318/temp/Mancala_MinMax/main.cpp
+bits/stdc++.h
+-
+comp_vs_human.cpp
+G:/3-2/318/temp/Mancala_MinMax/comp_vs_human.cpp
+
+G:/3-2/318/temp/Mancala_MinMax/minmax.cpp
+bits/stdc++.h
+-
+game_board.cpp
+G:/3-2/318/temp/Mancala_MinMax/game_board.cpp
 

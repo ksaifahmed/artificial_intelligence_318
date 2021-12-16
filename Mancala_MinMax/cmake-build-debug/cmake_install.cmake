@@ -1,4 +1,4 @@
-# Install script for directory: G:/3-2/318/Mancala_MinMax
+# Install script for directory: G:/3-2/318/temp/Mancala_MinMax
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "G:/3-2/318/Mancala_MinMax/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "G:/3-2/318/temp/Mancala_MinMax/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

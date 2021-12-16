@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "G:/3-2/318/Mancala_MinMax/main.cpp" "G:/3-2/318/Mancala_MinMax/cmake-build-debug/CMakeFiles/Mancala_MinMax.dir/main.cpp.obj"
+  "G:/3-2/318/temp/Mancala_MinMax/main.cpp" "G:/3-2/318/temp/Mancala_MinMax/cmake-build-debug/CMakeFiles/Mancala_MinMax.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
