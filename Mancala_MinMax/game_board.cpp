@@ -117,7 +117,7 @@ void printBoard(Board board) {
 
 
 bool bonus_turn(Board board, int index, bool top){
-    int beads = board.pockets[index];
+    int beads = board.pockets[index--];
     if(!top){
         while (beads--) {
             if(index == 0) index = 13;
