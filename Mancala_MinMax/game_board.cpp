@@ -25,6 +25,15 @@ Board getCopy(Board board) {
 }
 
 
+bool isEqual(Board board1, Board board2){
+    for(int i=0; i<14; i++){
+        if(board1.pockets[i] != board2.pockets[i])
+            return false;
+    }
+    return true;
+}
+
+
 Board getTopPlayerMove(Board b, int index) {
     Board board = getCopy(b);
     int beads = board.pockets[index];
@@ -106,3 +115,45 @@ void printBoard(Board board) {
     cout << endl << endl;
 }
 
+
+bool bonus_turn(Board board, int index, bool top){
+    int beads = board.pockets[index];
+    if(!top){
+        while (beads--) {
+            if(index == 0) index = 13;
+            if(!beads && index == 7) return true;
+            index--;
+        }
+    }else{
+        while (beads--) {
+            if(index == -1) index = 13;
+            if(index == 7) index = 6;
+            if(!beads && index == 0) return true;
+            index--;
+        }
+    }
+    return false;
+}
+
+
+bool bonus_turn(Board original, Board new_board, bool top){
+    if(top){
+        for(int i=1; i<7; i++){
+            if(original.pockets[i]) {
+                Board child = getTopPlayerMove(original, i);
+                if(bonus_turn(original, i, top) && isEqual(child, new_board))
+                    return true;
+            }
+        }
+    }else{
+        for(int i=13; i>7; i--){
+            if(original.pockets[i]) {
+                Board child = getBottomPlayerMove(original, i);
+                if(bonus_turn(original, i, !top) && isEqual(child, new_board))
+                    return true;
+            }
+        }
+    }
+
+    return false;
+}

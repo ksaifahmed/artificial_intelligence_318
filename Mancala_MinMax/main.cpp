@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#include "comp_vs_human.cpp"
+#include "game_engine.cpp"
 
 
 void start_game(){
@@ -16,7 +16,10 @@ void start_game(){
         if(first == 'y'){
             start_human_vs_comp(board, true);
         }else start_human_vs_comp(board, false);
-    }else {
+    }else if(mode == 2){
+
+    }
+    else {
         cout << "invalid mode, terminating game...\n";
     }
 }

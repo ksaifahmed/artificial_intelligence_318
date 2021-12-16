@@ -20,6 +20,7 @@ int heuristic1(Board board){ return board.pockets[0] - board.pockets[7]; }
 
 
 
+
 typedef pair<Board, int> ScoreBoard;
 ScoreBoard pruned_minmax(Board board, int depth, bool is_max, int alpha, int beta) {
     //leaf
