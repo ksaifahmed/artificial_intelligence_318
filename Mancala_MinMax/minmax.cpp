@@ -52,6 +52,8 @@ ScoreBoard pruned_minmax(Board board, int depth, bool is_max, int alpha, int bet
             if(best_score < score) {
                 best_score = score;
                 best_board = child;
+            }else if(best_score == score){
+                best_board = random_choice(best_board, child);
             }
 
             if(best_score >= beta) return make_pair(best_board, best_score);
@@ -69,6 +71,8 @@ ScoreBoard pruned_minmax(Board board, int depth, bool is_max, int alpha, int bet
             if(best_score > score) {
                 best_score = score;
                 best_board = child;
+            }else if(best_score == score){
+                best_board = random_choice(best_board, child);
             }
 
             if(best_score <= alpha) return make_pair(best_board, best_score);

@@ -43,17 +43,14 @@ void start_game(){
         cout << "Select heuristics for computer 2: ";
         cin >> h2;
         while (limiter--){
-            if(fight_comp_vs_comp(board, h1, h2) == 1) {
+            int res = fight_comp_vs_comp(board, h1, h2);
+            if(res == 1) {
                 cout << "Agent with Heuristic "<< h1 <<" WINS!!!\n";
                 c1++;
             }
-            else if(fight_comp_vs_comp(board, h1, h2) == 0) {
+            else if(res == 0) {
                 cout << "Agent with Heuristic "<< h2 <<" WINS!!!\n";
                 c2++;
-            }
-            else {
-                cout << "Tie?\n";
-                continue;
             }
         }
         cout << "Heuristic " << h1 << " won " << c1 << " times!\n";

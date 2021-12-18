@@ -4,7 +4,7 @@ using namespace std;
 
 
 void start_human_vs_comp(Board board, bool human_first, int heuristics){
-    int limit = 100, move;
+    int limit = 10000, move;
     if(human_first){
         cout << "========= CURRENT STATE ===========\n";
         printBoard(board);
@@ -118,7 +118,7 @@ void start_human_vs_comp(Board board, bool human_first, int heuristics){
 
 void start_comp_vs_comp(Board board, int h1, int h2)
 {
-    int limiter = 200;
+    int limiter = 20000;
     while(limiter--){
         cout << "========= START STATE ===========\n";
         printBoard(board);
@@ -168,7 +168,7 @@ void start_comp_vs_comp(Board board, int h1, int h2)
 
 ///for generating results
 int fight_comp_vs_comp(Board board, int h1, int h2){
-    int limiter = 2000;
+    int limiter = 200000;
     while(limiter--){
         //AGENT 1
         while (1){
@@ -202,6 +202,5 @@ int fight_comp_vs_comp(Board board, int h1, int h2){
         }
 
     }
-
     return -1;
 }

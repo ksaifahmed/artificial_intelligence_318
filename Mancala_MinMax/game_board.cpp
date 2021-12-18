@@ -193,3 +193,7 @@ void printBoard(Board board) {
     cout << endl << endl;
 }
 
+Board random_choice(Board b1, Board b2){
+    if(rand()%2) return b1;
+    else return b2;
+}
