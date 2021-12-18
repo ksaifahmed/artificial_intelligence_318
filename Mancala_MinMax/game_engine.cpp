@@ -164,3 +164,44 @@ void start_comp_vs_comp(Board board, int h1, int h2)
 
     }
 }
+
+
+///for generating results
+int fight_comp_vs_comp(Board board, int h1, int h2){
+    int limiter = 2000;
+    while(limiter--){
+        //AGENT 1
+        while (1){
+            Board temp = getCopy(board);
+            board = pruned_minmax(board, 0, true, -INF, INF, h1, true).first;
+            if(end_of_game(board)) {
+                if(top_won(board))
+                    return 1;
+                else return 0;
+            }
+
+            if(bonus_turn(temp, board, true)) {
+                continue;
+            } break;
+        }
+
+        //AGENT 2
+        while (1){
+            Board temp = getCopy(board);
+            board = pruned_minmax(board, 0, true, -INF, INF, h2, false).first;
+
+            if(end_of_game(board)) {
+                if(top_won(board))
+                    return 1;
+                else return 0;
+            }
+
+            if(bonus_turn(temp, board, false)) {
+                continue;
+            } break;
+        }
+
+    }
+
+    return -1;
+}

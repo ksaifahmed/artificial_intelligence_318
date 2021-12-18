@@ -73,6 +73,37 @@ Board getBottomPlayerMove(Board b, int index) {
 }
 
 
+bool steal_present(Board b, int  index, bool is_top){
+    Board board = getCopy(b);
+    int beads = board.pockets[index];
+    board.pockets[index--] = 0;
+    if(is_top){
+        while (beads--) {
+            if(index == -1) index = 13;
+            if(index == 7) index = 6;
+            board.pockets[index]++;
+            if(!beads && index > 0 && index < 7 && board.pockets[index] == 1 && board.pockets[14-index]) {
+                return true;
+            }
+            index--;
+        }
+        return false;
+    }
+
+    else{
+        while (beads--) {
+            if(index == 0) index = 13;
+            board.pockets[index]++;
+            if(!beads && index > 7 && index < 14 && board.pockets[index] == 1 && board.pockets[14-index]) {
+                return true;
+            }
+            index--;
+        }
+        return false;
+    }
+}
+
+
 bool bonus_turn(Board board, int index, bool top){
     int beads = board.pockets[index--];
     if(!top){

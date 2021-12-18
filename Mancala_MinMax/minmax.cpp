@@ -42,31 +42,35 @@ ScoreBoard pruned_minmax(Board board, int depth, bool is_max, int alpha, int bet
     }
 
     if(is_max){
-        int best_score = -INF;
+        int best_score = -INF-1000;
         BoardChild list = getChildren(board, is_top); //gets children of top(first) player
         Board best_board = list.at(0);
         for(auto child : list) {
             //printBoard(child);
             int score = pruned_minmax(child, depth+1, false, alpha, beta, heuristic, is_top).second;
+
             if(best_score < score) {
                 best_score = score;
                 best_board = child;
             }
+
             if(best_score >= beta) return make_pair(best_board, best_score);
             alpha = max(alpha, best_score);
         }
         return make_pair(best_board, best_score);
 
     }else{
-        int best_score = INF;
+        int best_score = INF+1000;
         BoardChild list = getChildren(board, !is_top); //gets children of bottom(second) player
         Board best_board = list.at(0);
         for(auto child : list){
             int score = pruned_minmax(child, depth+1, true, alpha, beta, heuristic, is_top).second;
+
             if(best_score > score) {
                 best_score = score;
                 best_board = child;
             }
+
             if(best_score <= alpha) return make_pair(best_board, best_score);
             beta = min(beta, best_score);
         }
