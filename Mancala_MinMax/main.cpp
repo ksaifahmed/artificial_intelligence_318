@@ -14,10 +14,16 @@ void start_game(){
         cout << "Would you like to go first? [y]" << endl;
         cin >> first;
         if(first == 'y'){
-            start_human_vs_comp(board, true);
-        }else start_human_vs_comp(board, false);
+            start_human_vs_comp(board, true, 1);
+        }else start_human_vs_comp(board, false, 1);
     }else if(mode == 2){
-
+        int h1, h2;
+        Heuristics::display_heuristics();
+        cout << "Select heuristics for computer 1: ";
+        cin >> h1;
+        cout << "Select heuristics for computer 2: ";
+        cin >> h2;
+        start_comp_vs_comp(board, h1, h2);
     }
     else {
         cout << "invalid mode, terminating game...\n";

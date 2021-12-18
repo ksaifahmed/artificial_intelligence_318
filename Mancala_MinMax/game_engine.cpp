@@ -3,7 +3,7 @@ using namespace std;
 #include "minmax.cpp"
 
 
-void start_human_vs_comp(Board board, bool human_first){
+void start_human_vs_comp(Board board, bool human_first, int heuristics){
     int limit = 100, move;
     if(human_first){
         cout << "========= CURRENT STATE ===========\n";
@@ -25,7 +25,7 @@ void start_human_vs_comp(Board board, bool human_first){
                 cout << "========= after your move: ===========\n";
                 printBoard(board);
 
-                if(end_of_game(board) && top_won(board)) {
+                if(end_of_game(board)) {
                     if(top_won(board))
                         cout << "You lost :( \n";
                     else cout << "Congratulations, you win!!!!!\n";
@@ -39,11 +39,11 @@ void start_human_vs_comp(Board board, bool human_first){
 
             while (1){
                 Board temp = getCopy(board);
-                board = pruned_minmax(board, 0, true, -INF, INF).first;
+                board = pruned_minmax(board, 0, true, -INF, INF, heuristics, true).first;
                 cout << "========= computer's move: ===========\n";
                 printBoard(board);
 
-                if(end_of_game(board) && top_won(board)) {
+                if(end_of_game(board)) {
                     if(top_won(board))
                         cout << "You lost :( \n";
                     else cout << "Congratulations, you win!!!!!\n";
@@ -65,11 +65,11 @@ void start_human_vs_comp(Board board, bool human_first){
         while (limit--){
             while (1){
                 Board temp = getCopy(board);
-                board = pruned_minmax(board, 0, true, -INF, INF).first;
+                board = pruned_minmax(board, 0, true, -INF, INF, heuristics, true).first;
                 cout << "========= computer's move: ===========\n";
                 printBoard(board);
 
-                if(end_of_game(board) && top_won(board)) {
+                if(end_of_game(board)) {
                     if(top_won(board))
                         cout << "You lost :( \n";
                     else cout << "Congratulations, you win!!!!!\n";
@@ -98,7 +98,7 @@ void start_human_vs_comp(Board board, bool human_first){
                 cout << "========= after your move: ===========\n";
                 printBoard(board);
 
-                if(end_of_game(board) && top_won(board)) {
+                if(end_of_game(board)) {
                     if(top_won(board))
                         cout << "You lost :( \n";
                     else cout << "Congratulations, you win!!!!!\n";
@@ -116,7 +116,51 @@ void start_human_vs_comp(Board board, bool human_first){
 
 
 
-void start_comp_vs_comp()
+void start_comp_vs_comp(Board board, int h1, int h2)
 {
+    int limiter = 200;
+    while(limiter--){
+        cout << "========= START STATE ===========\n";
+        printBoard(board);
+        //AGENT 1
+        while (1){
+            Board temp = getCopy(board);
+            board = pruned_minmax(board, 0, true, -INF, INF, h1, true).first;
+            cout << "========= Agent with Heuristic " << h1 << "'s move: ===========\n";
+            printBoard(board);
 
+            if(end_of_game(board)) {
+                if(top_won(board))
+                    cout << "Agent with Heuristic "<< h1 <<" WINS!!!\n";
+                else cout << "Agent with Heuristic "<< h2 <<" WINS!!!\n";
+                return;
+            }
+
+            if(bonus_turn(temp, board, true)) {
+                cout << "BONUS TURN FOR AGENT WITH HEURISTIC " << h1 <<"\n";
+                continue;
+            } break;
+        }
+
+        //AGENT 2
+        while (1){
+            Board temp = getCopy(board);
+            board = pruned_minmax(board, 0, true, -INF, INF, h2, false).first;
+            cout << "========= Agent with Heuristic " << h2 << "'s move: ===========\n";
+            printBoard(board);
+
+            if(end_of_game(board)) {
+                if(top_won(board))
+                    cout << "Agent with Heuristic "<< h1 <<" WINS!!!\n";
+                else cout << "Agent with Heuristic "<< h2 <<" WINS!!!\n";
+                return;
+            }
+
+            if(bonus_turn(temp, board, false)) {
+                cout << "BONUS TURN FOR AGENT WITH HEURISTIC " << h2 <<"\n";
+                continue;
+            } break;
+        }
+
+    }
 }

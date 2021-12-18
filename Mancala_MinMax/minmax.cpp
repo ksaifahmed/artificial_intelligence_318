@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "game_board.cpp"
+#include "heuristics.cpp"
 using namespace std;
 
 
@@ -7,42 +8,35 @@ using namespace std;
 #define INF 2147480000
 
 
-//HEURISTIC FUNCTIONS
-int heuristic1(Board board){ return board.pockets[0] - board.pockets[7]; }
-
-
-
-
-
-
-
-
-
-
-
 
 typedef pair<Board, int> ScoreBoard;
-ScoreBoard pruned_minmax(Board board, int depth, bool is_max, int alpha, int beta) {
+ScoreBoard pruned_minmax(Board board, int depth, bool is_max, int alpha, int beta, int heuristic, bool is_top) {
     //leaf
     if(end_of_game(board)) {
-        if(board.pockets[0] > board.pockets[7])
-            return make_pair(board, board.pockets[0]+INF);
-        else return make_pair(board, -(board.pockets[7]+INF));
+        if(is_top){ //minmax called by top player
+            if(top_won(board)) //if top wins, return top_store+infinity
+                return make_pair(board, board.pockets[0]+INF);
+            else return make_pair(board, -(board.pockets[7]+INF));
+        }else{ //minmax called by bottom player
+            if(!top_won(board)) //if bottom wins, return bottom_store+infinity
+                return make_pair(board, board.pockets[7]+INF);
+            else return make_pair(board, -(board.pockets[0]+INF));
+        }
     }
 
     //max_depth e heuristic 1
     if(depth == MAX_DEPTH) {
         //cout << board.pockets[0] - board.pockets[7] << " -> scores" << endl;
-        return make_pair(board, heuristic1(board));
+        return make_pair(board, Heuristics::get(heuristic, board, is_top));
     }
 
     if(is_max){
         int best_score = -INF;
-        BoardChild list = getChildren(board, true); //gets children of top(first) player
+        BoardChild list = getChildren(board, is_top); //gets children of top(first) player
         Board best_board = list.at(0);
         for(auto child : list) {
             //printBoard(child);
-            int score = pruned_minmax(child, depth+1, false, alpha, beta).second;
+            int score = pruned_minmax(child, depth+1, false, alpha, beta, heuristic, is_top).second;
             if(best_score < score) {
                 best_score = score;
                 best_board = child;
@@ -54,10 +48,10 @@ ScoreBoard pruned_minmax(Board board, int depth, bool is_max, int alpha, int bet
 
     }else{
         int best_score = INF;
-        BoardChild list = getChildren(board, false); //gets children of bottom(second) player
+        BoardChild list = getChildren(board, !is_top); //gets children of bottom(second) player
         Board best_board = list.at(0);
         for(auto child : list){
-            int score = pruned_minmax(child, depth+1, true, alpha, beta).second;
+            int score = pruned_minmax(child, depth+1, true, alpha, beta, heuristic, is_top).second;
             if(best_score > score) {
                 best_score = score;
                 best_board = child;
