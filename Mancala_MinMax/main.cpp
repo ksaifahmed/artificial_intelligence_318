@@ -14,8 +14,8 @@ void start_game(){
         cout << "Would you like to go first? [y]" << endl;
         cin >> first;
         if(first == 'y'){
-            start_human_vs_comp(board, true, 1);
-        }else start_human_vs_comp(board, false, 1);
+            start_human_vs_comp(board, true, 3);
+        }else start_human_vs_comp(board, false, 3);
     }else if(mode == 2){
         int h1, h2;
         Heuristics::display_heuristics();

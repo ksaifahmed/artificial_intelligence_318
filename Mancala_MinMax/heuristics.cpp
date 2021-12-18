@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define W1 10
-#define W2 20
-#define W3 30
+#define W1 50
+#define W2 5
+#define W3 100
 
 
 //HEURISTIC FUNCTIONS
@@ -37,6 +37,20 @@ public:
             ret_val = W1*(board.pockets[0] - board.pockets[7]) + W2*(stones1-stones2);
             if(is_top) return ret_val;
             else return -ret_val;
+        }
+        else if(n == 3){
+            int stones1 = 0, stones2 = 0, ret_val;
+            int bonus_top = 0, bonus_bottom = 0;
+            for(int i=1; i<7; i++) {
+                stones1 += board.pockets[i];
+                if(bonus_turn(board, i, true)) bonus_top++;
+            }
+            for(int i=13; i>7; i--) {
+                stones2 += board.pockets[i];
+                if(bonus_turn(board, i, false)) bonus_bottom++;
+            }
+            if(is_top) return W1*(board.pockets[0] - board.pockets[7]) + W2*(stones1-stones2) + W3 * bonus_top;
+            else return W1*(board.pockets[7] - board.pockets[0]) + W2*(stones2-stones1) + W3 * bonus_bottom;
         }
         else {
             if(is_top) return board.pockets[0] - board.pockets[7];

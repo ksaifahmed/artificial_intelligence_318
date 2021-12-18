@@ -24,6 +24,17 @@ ScoreBoard pruned_minmax(Board board, int depth, bool is_max, int alpha, int bet
         }
     }
 
+    //if depth == 0, check for bonus
+    if(!depth) {
+        if(is_top){
+            for(int i=1; i<7; i++)
+                if(bonus_turn(board, i, true)) return make_pair(getTopPlayerMove(board, i), INF);
+        }else{
+            for(int i=8; i<14; i++)
+                if(bonus_turn(board, i, false)) return make_pair(getBottomPlayerMove(board, i), INF);
+        }
+    }
+
     //max_depth e heuristic 1
     if(depth == MAX_DEPTH) {
         //cout << board.pockets[0] - board.pockets[7] << " -> scores" << endl;
